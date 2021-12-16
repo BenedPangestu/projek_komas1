@@ -14,6 +14,28 @@ class Home extends BaseController
         $databener = array('datalist' => $data, );
         // var_dump($data);
         echo view('home', $databener);
+    }
+    public function coba(){
+        $date = date("d");
+        $file = file_get_contents("https://www.jadwalsholat.org/adzan/monthly.php?id=47");
+        $first_step = explode( "<b>".$date."</b></td>" , $file );
+        $second_step = explode("</tr>" , $first_step[1] );
+        $data = $second_step[0];
+
+        $subuh = substr($data, 14, 17);
+        $isya = substr($data, -10, 10);
+        $magrib = substr($data, -28, 9);
+        $ashar = substr($data, -38, 5);
+        $dzuhur = substr($data, 51, 19);
+        var_dump($dzuhur);
+        $jadwalsolat = array(
+            'subuh' => $subuh,
+            'dzuhur' => $dzuhur,
+            'ashar' => $ashar,
+            'magrib' => $magrib,
+            'isya' => $isya,
+        );
+        var_dump($jadwalsolat);
     } 
     // function jadwalsholat(){
     //      $date = date("Y-m-d");
